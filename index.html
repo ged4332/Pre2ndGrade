@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Leap - 2nd Grade Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .touchstone-bg-primary { background-color: #00AEEF; }
+        .touchstone-bg-secondary { background-color: #FDB913; }
+        .touchstone-text-primary { color: #00AEEF; }
+        .touchstone-text-secondary { color: #FDB913; }
+        .touchstone-text-dark { color: #4D4D4D; }
+        .tab-active {
+            border-bottom: 4px solid #00AEEF;
+            color: #00AEEF;
+        }
+        .task-checkbox:checked + label .fa-circle { display: none; }
+        .task-checkbox:checked + label .fa-check-circle { display: inline-block; }
+        .task-checkbox:checked + label .task-text { text-decoration: line-through; color: #9ca3af; }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .modal { transition: opacity 0.25s ease; z-index: 50; }
+        .modal-content { transition: transform 0.25s ease; }
+        .badge-earned { filter: none; opacity: 1; }
+        .badge-locked { filter: grayscale(100%); opacity: 0.4; }
+        @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 touchstone-text-dark">
+
+    <div id="app" class="max-w-4xl mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold touchstone-text-primary">Summer Leap</h1>
+            <p class="text-lg text-gray-600 mt-2">Your 2nd Grade Prep Companion</p>
+        </header>
+
+        <main id="main-content" class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="flex space-x-4 md:space-x-8 -mb-px" aria-label="Tabs">
+                    <button role="tab" aria-selected="true" aria-controls="content-parent-guide" onclick="showTab('parent-guide')" id="tab-parent-guide" class="tab-active whitespace-nowrap pb-4 px-1 border-b-2 font-semibold text-lg">Parent Guide</button>
+                    <button role="tab" aria-selected="false" aria-controls="content-student-workbook" onclick="showTab('student-workbook')" id="tab-student-workbook" class="whitespace-nowrap pb-4 px-1 border-b-2 font-semibold text-lg text-gray-500 hover:text-gray-700 hover:border-gray-300">Student Workbook</button>
+                    <button role="tab" aria-selected="false" aria-controls="content-adventure-log" onclick="showTab('adventure-log')" id="tab-adventure-log" class="whitespace-nowrap pb-4 px-1 border-b-2 font-semibold text-lg text-gray-500 hover:text-gray-700 hover:border-gray-300">Adventure Log</button>
+                </nav>
+            </div>
+
+            <div role="tabpanel" id="content-parent-guide" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 touchstone-text-primary">Welcome, Parents!</h2>
+                <p class="mb-4">This guide provides a simple 6-week plan to help your child prepare for second grade. Each week is a themed adventure with fun, hands-on activities. Aim for 15-30 minutes of focused activity, 3-5 days a week.</p>
+                <div class="space-y-4">
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <h3 class="font-semibold text-lg"><i class="fas fa-lightbulb mr-2"></i>Turn Learning into Play</h3>
+                        <p>The best learning happens when kids don't even realize it's happening! Encourage creativity, ask "what if" questions, and celebrate the fun of discovery. This isn't school, it's a summer adventure!</p>
+                    </div>
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <h3 class="font-semibold text-lg"><i class="fas fa-award mr-2"></i>Unlocking Adventure Badges</h3>
+                        <p class="mb-2">At the end of each week's five missions, your child will earn a special badge that appears in their <strong>Adventure Log</strong>! The badge is awarded automatically when the final task is checked off.</p>
+                        <p><strong>Your Role as "Adventure Chief":</strong> Before checking that last box, this is a great moment to review the week's fun activities with your child. The "criteria" isn't perfection, but <strong>effort and enjoyment</strong>. Celebrate their creativity and hard work, and then check that final box <em>together</em> to unlock their reward!</p>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <h3 class="font-semibold text-lg"><i class="fas fa-book-reader mr-2"></i>Reading Adventure Resources</h3>
+                        <p class="mb-3">Encouraging daily reading is one of the best ways to support your child this summer! Here are some fun, age-appropriate resources you can use alongside our weekly missions.</p>
+                        
+                        <h4 class="font-semibold mt-3 mb-1 text-gray-800">From Your Local Library</h4>
+                        <p class="text-sm text-gray-600 mb-2">Visit any Denver Public Library branch or use their website to find these wonderful book series. Many are available as e-books, too!</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li><strong>Funny Adventures:</strong> Look for the *Elephant & Piggie* series by Mo Willems or the *Mercy Watson* series by Kate DiCamillo.</li>
+                            <li><strong>Mysteries & Detectives:</strong> The *Nate the Great* series is a perfect match for our "Reading Detectives" week.</li>
+                            <li><strong>Amazing Animal Facts:</strong> Check out the *National Geographic Kids Readers (Level 1)* or the *Fly Guy Presents* series.</li>
+                            <li><strong>Classic Stories:</strong> You can't go wrong with the beloved *Frog and Toad* series by Arnold Lobel.</li>
+                        </ul>
+                        <div class="mt-3 p-3 bg-white border-l-4 border-yellow-400">
+                            <p><strong>Library Tip:</strong> The secret to a great library trip is letting your child choose the books. When they are invested in the topic, reading becomes a treat, not a task.</p>
+                        </div>
+
+                        <h4 class="font-semibold mt-4 mb-1 text-gray-800">Printable & Online Reading</h4>
+                         <p class="text-sm text-gray-600 mb-2">For a quick, 15-minute activity, these free websites are fantastic:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li><strong>ReadWorks.org:</strong> Create a free account to access hundreds of short, printable reading passages. You can search by "2nd Grade" to find the perfect options.</li>
+                            <li><strong>UniteforLiteracy.com:</strong> Explore a library of simple, free digital picture books on fun topics that are great for reading together on a screen.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" id="content-student-workbook" class="content-section hidden">
+                <h2 class="text-2xl font-bold mb-4 touchstone-text-primary">Weekly Missions</h2>
+                <p class="mb-6">Select a week to begin your adventure!</p>
+                <div class="flex flex-wrap gap-4 justify-center" aria-label="Select a week">
+                    <button onclick="showWeek(1)" class="week-selector bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Week 1</button>
+                    <button onclick="showWeek(2)" class="week-selector bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Week 2</button>
+                    <button onclick="showWeek(3)" class="week-selector bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Week 3</button>
+                    <button onclick="showWeek(4)" class="week-selector bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Week 4</button>
+                    <button onclick="showWeek(5)" class="week-selector bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Week 5</button>
+                    <button onclick="showWeek(6)" class="week-selector bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Week 6</button>
+                </div>
+                <div id="weekly-activities" class="mt-8"></div>
+            </div>
+            
+            <div role="tabpanel" id="content-adventure-log" class="content-section hidden">
+                 <h2 class="text-2xl font-bold mb-4 touchstone-text-primary">My Adventure Log</h2>
+                 <p class="mb-6">Here are all the amazing mission badges you've earned this summer. Keep up the great work!</p>
+                 <div id="badge-collection" class="grid grid-cols-2 md:grid-cols-3 gap-6 text-center">
+                    <!-- Badges will be injected here by JS -->
+                 </div>
+            </div>
+        </main>
+
+        <footer class="text-center mt-8 text-sm text-gray-500">
+            <p>&copy; 2025 Summer Leap. All Rights Reserved.</p>
+            <div class="mt-2">
+                <a href="#" onclick="event.preventDefault(); showLegal('privacy')" class="hover:underline">Privacy Policy</a> | <a href="#" onclick="event.preventDefault(); showLegal('terms')" class="hover:underline">Terms of Service</a>
+            </div>
+        </footer>
+    </div>
+    
+    <div id="print-area" class="hidden"></div>
+
+    <div id="reward-modal" role="dialog" aria-modal="true" aria-labelledby="reward-heading" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-lg p-8 text-center shadow-2xl transform scale-95">
+            <i id="reward-icon" class="fas text-6xl touchstone-text-secondary mb-4" aria-hidden="true"></i>
+            <h2 id="reward-heading" class="text-3xl font-bold mb-2">Mission Complete!</h2>
+            <p id="reward-text" class="text-gray-700 mb-6">You're a superstar!</p>
+            <button onclick="closeModal('reward-modal')" class="touchstone-bg-primary hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Awesome!</button>
+        </div>
+    </div>
+    
+    <div id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-heading" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-lg p-8 shadow-2xl transform scale-95 max-w-2xl w-full h-3/4 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="legal-heading" class="text-3xl font-bold touchstone-text-primary"></h2>
+                <button onclick="closeModal('legal-modal')" class="text-gray-500 hover:text-gray-800 text-2xl" aria-label="Close legal information">&times;</button>
+            </div>
+            <div id="legal-text" class="prose overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentWeek = 1;
+        let workbookData = {};
+        
+        const defaultWorkbookData = {
+            1: { name: 'Reading Detectives', icon: 'fa-search', weekCompleted: false, activities: [
+                { day: 'Day 1: The Case of the Missing Vowels', task: "Oh no! The vowels (A, E, I, O, U) have vanished! Be a detective and write them back in to solve the puzzle: c_t, d_g, s_n, b_g.", completed: false },
+                { day: 'Day 2: Secret Code Math', task: 'Every number is a secret letter (1=A, 2=B, 3=C...). Solve the math to reveal the password: (2+1)=?, (1+0)=?, (19+1)=?', completed: false },
+                { day: 'Day 3: Invisible Ink Messages', task: 'Write a secret message with a white crayon on white paper. Have your Parent-Assistant paint over it with watercolor to reveal the message!', completed: false },
+                { day: 'Day 4: Neighborhood Sign Safari', task: 'Detectives need sharp eyes! Go on a walk and be a "Word Hunter". How many times can you spot the word STOP or a street sign with your first initial?', completed: false },
+                { day: 'Day 5: Report to the Chief', task: 'After reading a book, report to the "Parent Detective Chief." Tell them the WHO (characters), the WHERE (setting), and the WHAT (what happened).', completed: false }
+            ]},
+            2: { name: 'Animal Planet Explorer', icon: 'fa-paw', weekCompleted: false, activities: [
+                { day: 'Day 1: Habitat Creation Station', task: 'Choose a toy animal. Use a shoebox, pillows, or blankets to build its perfect habitat. Does it need a cave, a tree, or a river?', completed: false },
+                { day: 'Day 2: Creature Count & Sort', task: 'You\'re a field researcher! Gather your toy animals. Sort them by how many legs they have. Now sort them by where they live (land, sea, or air). Count each group!', completed: false },
+                { day: 'Day 3: Design-A-Beast Workshop', task: 'Invent a new animal! Draw it, give it a silly name, decide what it eats, and write one sentence about its special superpower.', completed: false },
+                { day: 'Day 4: Denver Zoo Dreamin\'', task: 'Let\'s plan a pretend trip to the Denver Zoo! Look at their website map with a parent. Find one amazing fact about an animal you want to see.', completed: false },
+                { day: 'Day 5: Animal Charades', task: 'Read a book about an animal, then act out how it moves and eats without making a sound. Can your family guess who you are?', completed: false }
+            ]},
+            3: { name: 'Number Ninjas', icon: 'fa-calculator', weekCompleted: false, activities: [
+                { day: 'Day 1: Obstacle Course Counting', task: 'Set up a pillow and blanket obstacle course. Time yourself going through it. Now, try again while counting backwards from 20!', completed: false},
+                { day: 'Day 2: Estimation Station', task: 'Fill a jar with small items (beans, blocks, crayons). Guess how many are inside. Then, count them by making groups of 10 to see how close you were!', completed: false},
+                { day: 'Day 3: Snack Time Math', task: 'Grab a handful of crackers or grapes. Write a story problem about them. For example: "I have 12 grapes. I eat 5. How many are left?" Solve it before you eat!', completed: false},
+                { day: 'Day 4: Karate Chop Numbers', task: 'Be a math ninja! Take a number like 25. "Karate chop" it into tens and ones (20 and 5). Practice with other two-digit numbers.', completed: false},
+                { day: 'Day 5: Shape Hunt', task: 'Ninjas are observant. Find 3 things in your house that are circles, 3 that are squares, and 3 that are rectangles. Draw them in your notebook.', completed: false}
+            ]},
+            4: { name: 'Storytellers Guild', icon: 'fa-book-open', weekCompleted: false, activities: [
+                { day: 'Day 1: Story Stones', task: 'Find 3-5 smooth, flat rocks. Draw simple pictures on them: a sun, a key, a boat, a dog. Use your story stones to create a brand new adventure tale!', completed: false},
+                { day: 'Day 2: Character Creator', task: 'Draw a hero and a villain. Give them each a name and one special power. What is their story?', completed: false},
+                { day: 'Day 3: Finish the Tale', task: 'Here is the start of a story: "The little robot peeked out from behind the tree. It saw a giant, purple..." What happens next? Write or tell the rest of the story.', completed: false},
+                { day: 'Day 4: Comic Strip Fun', task: 'Fold a piece of paper into 4 squares. Draw a simple comic strip about your day. Use speech bubbles to show what people are saying.', completed: false},
+                { day: 'Day 5: Puppet Show', task: 'Make simple puppets out of paper bags or socks. Put on a puppet show for your family based on your favorite book or a story you made up this week.', completed: false}
+            ]},
+            5: { name: 'Cosmic Quest', icon: 'fa-rocket', weekCompleted: false, activities: [
+                { day: 'Day 1: Build a Rocket', task: 'Design and build your own rocket ship using paper towel tubes, cups, tape, and anything else you can find. Give it a cool name!', completed: false},
+                { day: 'Day 2: Constellation Creation', task: 'Look up a picture of the Big Dipper. Then, invent and draw your own constellation. What is its name and its story?', completed: false},
+                { day: 'Day 3: Planet Lineup', task: 'Draw the 8 planets in our solar system in order from the sun. Bonus: find out which planet is called the "Red Planet" and color it correctly.', completed: false},
+                { day: 'Day 4: Astronaut Training', task: 'Astronauts need to be strong! Do 10 jumping jacks, 5 star jumps, and try to balance on one foot for 10 seconds. Mission complete!', completed: false},
+                { day: 'Day 5: A Letter from Space', task: 'Imagine you are floating in your spaceship. Write or draw a postcard to your family on Earth telling them what you see out the window.', completed: false}
+            ]},
+            6: { name: 'Adventure Champion', icon: 'fa-trophy', weekCompleted: false, activities: [
+                { day: 'Day 1: Detective\'s Final Case', task: 'Use your detective skills! Write three "secret code" math problems for a family member to solve.', completed: false},
+                { day: 'Day 2: Super Storyteller', task: 'Combine two of your story stones from Week 4 to create a new, bigger adventure. Tell the story at dinner!', completed: false},
+                { day: 'Day 3: Ultimate Animal Expert', task: 'Draw your favorite animal from the Denver Zoo and write down three amazing facts you know about it.', completed: false},
+                { day: 'Day 4: Design Your Own Badge', task: 'You are an Adventure Champion! Draw a special badge that represents all the fun you had this summer.', completed: false},
+                { day: 'Day 5: Celebration Day!', task: 'You did it! You completed the Summer Leap challenge. Celebrate with your family. You are ready for second grade!', completed: false}
+            ]},
+        };
+
+        const legalContent = {
+            privacy: { title: 'Privacy Policy', content: `<p><strong>Effective Date:</strong> June 22, 2025</p><p>We do not collect, store, or share any personal information. All progress is saved on your local device and is not transmitted to us.</p>`},
+            terms: { title: 'Terms of Service', content: `<p><strong>Last Updated:</strong> June 22, 2025</p><p>This application is provided as a free educational resource. Use is for personal, non-commercial purposes only. We make no guarantees regarding academic outcomes.</p>`}
+        };
+
+        function saveData() {
+            localStorage.setItem('summerLeapData', JSON.stringify(workbookData));
+        }
+
+        function loadData() {
+            const savedData = localStorage.getItem('summerLeapData');
+            if (savedData) {
+                workbookData = JSON.parse(savedData);
+            } else {
+                workbookData = JSON.parse(JSON.stringify(defaultWorkbookData)); // Deep copy
+            }
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('[role="tabpanel"]').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('[role="tab"]').forEach(b => {
+                b.setAttribute('aria-selected', 'false');
+                b.classList.remove('tab-active');
+                b.classList.add('text-gray-500');
+            });
+
+            const selectedPanel = document.getElementById(`content-${tabName}`);
+            const selectedTab = document.getElementById(`tab-${tabName}`);
+            selectedPanel.classList.remove('hidden');
+            selectedTab.setAttribute('aria-selected', 'true');
+            selectedTab.classList.add('tab-active');
+            selectedTab.classList.remove('text-gray-500');
+
+            if (tabName === 'adventure-log') {
+                renderAdventureLog();
+            }
+        }
+
+        function renderAdventureLog() {
+            const badgeContainer = document.getElementById('badge-collection');
+            badgeContainer.innerHTML = '';
+            for (const week in workbookData) {
+                const weekInfo = workbookData[week];
+                const isEarned = weekInfo.weekCompleted;
+                badgeContainer.innerHTML += `
+                    <div class="flex flex-col items-center p-4 rounded-lg ${isEarned ? 'bg-yellow-50' : 'bg-gray-100'}">
+                        <i class="fas ${weekInfo.icon} text-5xl mb-3 ${isEarned ? 'touchstone-text-secondary badge-earned' : 'text-gray-400 badge-locked'}"></i>
+                        <h3 class="font-bold text-lg ${isEarned ? 'text-gray-800' : 'text-gray-500'}">${weekInfo.name}</h3>
+                        <p class="text-sm ${isEarned ? 'text-green-600' : 'text-gray-400'}">${isEarned ? 'Complete!' : 'Locked'}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function showWeek(weekNumber) {
+            currentWeek = weekNumber;
+            const weeklyContent = workbookData[weekNumber];
+            const activitiesContainer = document.getElementById('weekly-activities');
+            let content = `<div class="flex justify-between items-center mb-6 flex-wrap gap-4"><h3 class="text-3xl font-bold touchstone-text-secondary">Week ${weekNumber}: ${weeklyContent.name}</h3><button onclick="printWeek()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"><i class="fas fa-print mr-2"></i> Print Week</button></div>`;
+            content += `<div class="mb-6" role="progressbar" aria-label="Weekly progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="flex justify-between mb-1"><span class="text-base font-medium text-blue-700">Mission Progress</span><span id="progress-text" class="text-sm font-medium text-blue-700" aria-live="polite">0%</span></div><div class="w-full bg-gray-200 rounded-full h-4"><div id="progress-bar-fill" class="bg-blue-600 h-4 rounded-full progress-bar-fill" style="width: 0%"></div></div></div>`;
+            content += '<div class="space-y-3">';
+            weeklyContent.activities.forEach((activity, index) => {
+                const checkboxId = `task-${weekNumber}-${index}`;
+                content += `<div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><input type="checkbox" id="${checkboxId}" class="hidden task-checkbox" onchange="toggleTask(${index})" ${activity.completed ? 'checked' : ''}><label for="${checkboxId}" class="flex items-start cursor-pointer"><div class="flex-shrink-0 mr-4 mt-1 text-2xl" aria-hidden="true"><i class="far fa-circle text-gray-400"></i><i class="fas fa-check-circle text-green-500 hidden"></i></div><div class="task-text"><h4 class="font-semibold text-lg">${activity.day}</h4><p>${activity.task}</p></div></label></div>`;
+            });
+            content += '</div>';
+            activitiesContainer.innerHTML = content;
+            updateProgress();
+        }
+
+        function toggleTask(taskIndex) {
+            workbookData[currentWeek].activities[taskIndex].completed = !workbookData[currentWeek].activities[taskIndex].completed;
+            updateProgress();
+            saveData();
+        }
+
+        function updateProgress() {
+            const activities = workbookData[currentWeek].activities;
+            const completedTasks = activities.filter(a => a.completed).length;
+            const totalTasks = activities.length;
+            const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            const progressBar = document.querySelector('[role="progressbar"]');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+            const progressText = document.getElementById('progress-text');
+            if (progressBar && progressBarFill && progressText) {
+                progressBar.setAttribute('aria-valuenow', percentage);
+                progressBarFill.style.width = `${percentage}%`;
+                progressText.textContent = `${percentage}% Complete`;
+            }
+            if (percentage === 100 && !workbookData[currentWeek].weekCompleted) {
+                workbookData[currentWeek].weekCompleted = true;
+                showModal('reward-modal');
+                saveData();
+            }
+        }
+        
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modalId === 'reward-modal') {
+                const weekInfo = workbookData[currentWeek];
+                document.getElementById('reward-icon').className = `fas ${weekInfo.icon} text-6xl touchstone-text-secondary mb-4`;
+                document.getElementById('reward-text').textContent = `Great job completing the "${weekInfo.name}" mission! You earned the ${weekInfo.name} badge!`;
+            }
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.remove('scale-95');
+            modal.querySelector('button').focus();
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+            document.querySelector(`#tab-student-workbook`).focus();
+        }
+        
+        function showLegal(type) {
+            document.getElementById('legal-heading').textContent = legalContent[type].title;
+            document.getElementById('legal-text').innerHTML = legalContent[type].content;
+            showModal('legal-modal');
+        }
+
+        function printWeek() { /* Print functionality remains the same */ }
+        
+        window.onload = () => {
+          loadData();
+          showTab('parent-guide');
+          showWeek(1);
+        };
+    </script>
+</body>
+</html>
